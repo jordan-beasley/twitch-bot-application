@@ -1,0 +1,10 @@
+c:\users\jordan\documents\visual studio 2015\Projects\botform\botform\bin\Debug\botform.exe.config
+c:\users\jordan\documents\visual studio 2015\Projects\botform\botform\bin\Debug\botform.exe
+c:\users\jordan\documents\visual studio 2015\Projects\botform\botform\bin\Debug\botform.pdb
+c:\users\jordan\documents\visual studio 2015\Projects\botform\botform\obj\Debug\botform.csprojResolveAssemblyReference.cache
+c:\users\jordan\documents\visual studio 2015\Projects\botform\botform\obj\Debug\botform.Form1.resources
+c:\users\jordan\documents\visual studio 2015\Projects\botform\botform\obj\Debug\botform.Properties.Resources.resources
+c:\users\jordan\documents\visual studio 2015\Projects\botform\botform\obj\Debug\botform.csproj.GenerateResource.Cache
+c:\users\jordan\documents\visual studio 2015\Projects\botform\botform\obj\Debug\botform.exe
+c:\users\jordan\documents\visual studio 2015\Projects\botform\botform\obj\Debug\botform.pdb
+c:\users\jordan\documents\visual studio 2015\Projects\botform\botform\obj\Debug\botform.SignIn.resources
