@@ -8,3 +8,13 @@ c:\users\jordan\documents\visual studio 2015\Projects\botform\botform\obj\Debug\
 c:\users\jordan\documents\visual studio 2015\Projects\botform\botform\obj\Debug\botform.exe
 c:\users\jordan\documents\visual studio 2015\Projects\botform\botform\obj\Debug\botform.pdb
 c:\users\jordan\documents\visual studio 2015\Projects\botform\botform\obj\Debug\botform.SignIn.resources
+C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\bin\Debug\botform.exe.config
+C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.exe
+C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.pdb
+C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\bin\Debug\botform.exe
+C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\bin\Debug\botform.pdb
+C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.csprojResolveAssemblyReference.cache
+C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.Form1.resources
+C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.Properties.Resources.resources
+C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.csproj.GenerateResource.Cache
+C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.ActivateBot.resources

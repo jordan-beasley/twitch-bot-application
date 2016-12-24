@@ -18,9 +18,11 @@ namespace botform
         StreamReader s_reader;
         StreamWriter s_writer;
 
-        string username;
-        string password;
+        static botUser bot = new botUser();
 
+        // initialize the user controls
+        UserControl currentControl = null;
+        ActivateBot acControl = new ActivateBot(ref bot);
 
 
         public Form1()
@@ -28,27 +30,40 @@ namespace botform
             InitializeComponent();
             ContentPanel.Dock = DockStyle.Fill;
 
-            if (getUserInfo())// try to get the users info from file
+            if (bot.username == "")
             {
 
-                Connect();
-
-            }else // if it can't be found, load the filler page
+                ContentPanel.Controls.Add(acControl);
+                acControl.BringToFront();
+            }
+            else
             {
 
-                ContentPanel.Controls.Add(SignIn.Instance);
-                SignIn.Instance.BringToFront();
+                if (getUserInfo(ref bot))// try to get the users info from file
+                {
 
+                    //Connect();
+
+                }
+                else // if it can't be found, load the filler page
+                {
+                    currentControl = acControl;
+                    ContentPanel.Controls.Add(currentControl);
+                    acControl.BringToFront();
+
+                }
             }
             
         }
 
-        public bool getUserInfo()
+
+        bool getUserInfo(ref botUser b)
         {
-            bool retrieved = false;
+            bool retrived = false;
 
 
-            return retrieved;
+
+            return retrived;
         }
 
         void Connect()
@@ -58,15 +73,13 @@ namespace botform
             s_reader = new StreamReader(tcpClient.GetStream());
             s_writer = new StreamWriter(tcpClient.GetStream());
 
-            //string username = "zklown";
-            //string password = File.ReadAllText("auth.txt");
 
-            s_writer.WriteLine("PASS " + password + Environment.NewLine
-                + "NICK " + username + Environment.NewLine
-                + "USER " + username + " 8 * :" + username);
+            s_writer.WriteLine("PASS " + bot.getAuth() + Environment.NewLine
+                + "NICK " + bot.botName + Environment.NewLine
+                + "USER " + bot.botName + " 8 * :" + bot.botName);
 
             s_writer.Flush();
-            s_writer.WriteLine("JOIN #zklown");
+            s_writer.WriteLine("JOIN #" + bot.username);
             s_writer.Flush();
         }
 
@@ -98,7 +111,6 @@ namespace botform
         }
 
 
-
         private void ContentPanel_Paint(object sender, PaintEventArgs e)
         {
 
@@ -109,6 +121,25 @@ namespace botform
         // when button is clicked to submit, check text then post reply in chat
         private void btnSubmit_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void homeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (currentControl != null)
+            {
+                ContentPanel.Controls.Remove(currentControl);
+            }
+        }
+
+        private void setUpBotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            currentControl = acControl;
+
+            ContentPanel.Controls.Add(currentControl);
+            currentControl.BringToFront();
+            
 
         }
     }
