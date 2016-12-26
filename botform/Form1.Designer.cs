@@ -56,7 +56,6 @@
             this.ContentPanel.Name = "ContentPanel";
             this.ContentPanel.Size = new System.Drawing.Size(579, 396);
             this.ContentPanel.TabIndex = 0;
-            this.ContentPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ContentPanel_Paint);
             // 
             // btnSubmit
             // 

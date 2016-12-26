@@ -86,37 +86,34 @@ namespace botform
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (tcpClient != null && !tcpClient.Connected)
-            {
-                chatDisplay.Text += "\r\nAttempting to connect";
-                Connect();
+            if (bot.getState()) {
 
-            }else
-            {
-                chatDisplay.Text += "\r\nCould not connect";
-                this.timer1.Enabled = false; // if we couldn't connect, stop the timer
-            }
 
-            if (tcpClient != null)
-            {
-
-                if (tcpClient.Available > 0 || s_reader.Peek() > 0)
+                if (tcpClient != null && !tcpClient.Connected)
                 {
-                    string message = s_reader.ReadLine();
+                    chatDisplay.Text += "\r\nAttempting to connect";
+                    Connect();
 
-                    chatDisplay.Text += $"\r\n{message}";
+                } else
+                {
+                    chatDisplay.Text += "\r\nCould not connect";
+                    this.timer1.Enabled = false; // if we couldn't connect, stop the timer
+                }
 
+                if (tcpClient != null)
+                {
+
+                    if (tcpClient.Available > 0 || s_reader.Peek() > 0)
+                    {
+                        string message = s_reader.ReadLine();
+
+                        chatDisplay.Text += $"\r\n{message}";
+
+                    }
                 }
             }
         }
 
-
-        private void ContentPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-
-
-        }
 
         // when button is clicked to submit, check text then post reply in chat
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -131,6 +128,7 @@ namespace botform
             {
                 ContentPanel.Controls.Remove(currentControl);
             }
+
         }
 
         private void setUpBotToolStripMenuItem_Click(object sender, EventArgs e)
@@ -139,7 +137,6 @@ namespace botform
 
             ContentPanel.Controls.Add(currentControl);
             currentControl.BringToFront();
-            
 
         }
     }

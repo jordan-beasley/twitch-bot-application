@@ -32,6 +32,10 @@ namespace botform
         public botUser bot;
         string file;
         string auth;
+        bool gotUser = false;
+        bool gotBot = false;
+        bool gotAuth = false;
+
 
 
         public ActivateBot(ref botUser b)
@@ -81,12 +85,7 @@ namespace botform
         private void btnSubmit_Click(object sender, EventArgs e)
         {
 
-            bool gotUser = false;
-            bool gotBot = false;
-            bool gotAuth = false;
-
-
-            if (usernameBox.Text != "")
+            /*if (usernameBox.Text != "")
             {
                 gotUser = true;
 
@@ -110,6 +109,9 @@ namespace botform
                 gotAuth = true;
 
             } else if (file != "") {
+
+                gotAuth = true;
+
             }
             else
             {
@@ -121,19 +123,35 @@ namespace botform
             {
                 if (File.Exists(file))
                 {
+
+                    bot.username = usernameBox.Text.ToLower();
+                    bot.botName = botnameBox.Text.ToLower();
                     auth = File.ReadAllText(file);
 
                     bot.setAuth(auth);
 
-                    Console.WriteLine("worked");
+                    Console.WriteLine("should have worked");
 
-                }else
+                }
+                else
                 {
 
                     lblError.Text = "could not locate file";
                 }
 
-            }
+            }*/
+
+            //check if the text name and bot name are empty
+
+        }
+
+
+        private bool checkConnection()
+        {
+            bool connected = false;
+
+
+            return connected;
         }
 
     }

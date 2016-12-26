@@ -13,8 +13,9 @@ namespace botform
         public string username;
         public string botName;
         private string oAuth;
+        private bool active = false;
 
-        public string[,] commands = new string[10,10];
+        public string[,] commands = new string[10,10]; // command, response
         private int commandCount = 0;
 
         private bool strictMode = false;
@@ -35,7 +36,8 @@ namespace botform
 
         public void setAuth(string auth) { oAuth = auth; }
         public string getAuth() { return oAuth; }
-
+        public void activateBot(bool state) { active = state; }
+        public bool getState() { return active; }
     }
 
 
