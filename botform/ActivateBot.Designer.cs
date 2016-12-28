@@ -38,6 +38,10 @@
             this.lblAuth = new System.Windows.Forms.Label();
             this.cbLoadFile = new System.Windows.Forms.CheckBox();
             this.lblError = new System.Windows.Forms.Label();
+            this.cbMonChat1 = new System.Windows.Forms.CheckBox();
+            this.cbMonChat2 = new System.Windows.Forms.CheckBox();
+            this.lblMonChat = new System.Windows.Forms.Label();
+            this.monChatBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // usernameBox
@@ -90,7 +94,7 @@
             // btnSubmit
             // 
             this.btnSubmit.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnSubmit.Location = new System.Drawing.Point(222, 225);
+            this.btnSubmit.Location = new System.Drawing.Point(222, 317);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(152, 29);
             this.btnSubmit.TabIndex = 5;
@@ -112,9 +116,9 @@
             this.lblAuth.AutoSize = true;
             this.lblAuth.Location = new System.Drawing.Point(66, 202);
             this.lblAuth.Name = "lblAuth";
-            this.lblAuth.Size = new System.Drawing.Size(81, 17);
+            this.lblAuth.Size = new System.Drawing.Size(85, 17);
             this.lblAuth.TabIndex = 7;
-            this.lblAuth.Text = "Auth Token";
+            this.lblAuth.Text = "Auth Token:";
             // 
             // cbLoadFile
             // 
@@ -136,10 +140,56 @@
             this.lblError.Size = new System.Drawing.Size(0, 17);
             this.lblError.TabIndex = 9;
             // 
+            // cbMonChat1
+            // 
+            this.cbMonChat1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cbMonChat1.AutoSize = true;
+            this.cbMonChat1.Location = new System.Drawing.Point(185, 235);
+            this.cbMonChat1.Name = "cbMonChat1";
+            this.cbMonChat1.Size = new System.Drawing.Size(81, 21);
+            this.cbMonChat1.TabIndex = 10;
+            this.cbMonChat1.Text = "My Chat";
+            this.cbMonChat1.UseVisualStyleBackColor = true;
+            this.cbMonChat1.CheckedChanged += new System.EventHandler(this.cbMonChat1_CheckedChanged);
+            // 
+            // cbMonChat2
+            // 
+            this.cbMonChat2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cbMonChat2.AutoSize = true;
+            this.cbMonChat2.Location = new System.Drawing.Point(349, 235);
+            this.cbMonChat2.Name = "cbMonChat2";
+            this.cbMonChat2.Size = new System.Drawing.Size(66, 21);
+            this.cbMonChat2.TabIndex = 11;
+            this.cbMonChat2.Text = "Other";
+            this.cbMonChat2.UseVisualStyleBackColor = true;
+            this.cbMonChat2.CheckedChanged += new System.EventHandler(this.cbMonChat2_CheckedChanged);
+            // 
+            // lblMonChat
+            // 
+            this.lblMonChat.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblMonChat.AutoSize = true;
+            this.lblMonChat.Location = new System.Drawing.Point(66, 239);
+            this.lblMonChat.Name = "lblMonChat";
+            this.lblMonChat.Size = new System.Drawing.Size(92, 17);
+            this.lblMonChat.TabIndex = 12;
+            this.lblMonChat.Text = "Monitor Chat:";
+            // 
+            // monChatBox
+            // 
+            this.monChatBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.monChatBox.Location = new System.Drawing.Point(185, 266);
+            this.monChatBox.Name = "monChatBox";
+            this.monChatBox.Size = new System.Drawing.Size(230, 22);
+            this.monChatBox.TabIndex = 13;
+            // 
             // ActivateBot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.monChatBox);
+            this.Controls.Add(this.lblMonChat);
+            this.Controls.Add(this.cbMonChat2);
+            this.Controls.Add(this.cbMonChat1);
             this.Controls.Add(this.lblError);
             this.Controls.Add(this.cbLoadFile);
             this.Controls.Add(this.lblAuth);
@@ -169,5 +219,9 @@
         private System.Windows.Forms.Label lblAuth;
         private System.Windows.Forms.CheckBox cbLoadFile;
         private System.Windows.Forms.Label lblError;
+        private System.Windows.Forms.CheckBox cbMonChat1;
+        private System.Windows.Forms.CheckBox cbMonChat2;
+        private System.Windows.Forms.Label lblMonChat;
+        private System.Windows.Forms.TextBox monChatBox;
     }
 }

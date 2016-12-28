@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.ContentPanel = new System.Windows.Forms.Panel();
+            this.btnReconnect = new System.Windows.Forms.Button();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.chatBox = new System.Windows.Forms.TextBox();
             this.chatDisplay = new System.Windows.Forms.Label();
@@ -49,6 +50,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ContentPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.ContentPanel.Controls.Add(this.btnReconnect);
             this.ContentPanel.Controls.Add(this.btnSubmit);
             this.ContentPanel.Controls.Add(this.chatBox);
             this.ContentPanel.Controls.Add(this.chatDisplay);
@@ -56,6 +58,17 @@
             this.ContentPanel.Name = "ContentPanel";
             this.ContentPanel.Size = new System.Drawing.Size(579, 396);
             this.ContentPanel.TabIndex = 0;
+            // 
+            // btnReconnect
+            // 
+            this.btnReconnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnReconnect.Location = new System.Drawing.Point(476, 354);
+            this.btnReconnect.Name = "btnReconnect";
+            this.btnReconnect.Size = new System.Drawing.Size(92, 30);
+            this.btnReconnect.TabIndex = 3;
+            this.btnReconnect.Text = "Connect";
+            this.btnReconnect.UseVisualStyleBackColor = true;
+            this.btnReconnect.Click += new System.EventHandler(this.btnReconnect_Click);
             // 
             // btnSubmit
             // 
@@ -124,14 +137,14 @@
             // setUpBotToolStripMenuItem
             // 
             this.setUpBotToolStripMenuItem.Name = "setUpBotToolStripMenuItem";
-            this.setUpBotToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.setUpBotToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.setUpBotToolStripMenuItem.Text = "Set Up Bot";
             this.setUpBotToolStripMenuItem.Click += new System.EventHandler(this.setUpBotToolStripMenuItem_Click);
             // 
             // editBotToolStripMenuItem
             // 
             this.editBotToolStripMenuItem.Name = "editBotToolStripMenuItem";
-            this.editBotToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.editBotToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.editBotToolStripMenuItem.Text = "Edit Bot";
             // 
             // Form1
@@ -143,6 +156,7 @@
             this.Controls.Add(this.menuStrip);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.ContentPanel.ResumeLayout(false);
             this.ContentPanel.PerformLayout();
             this.menuStrip.ResumeLayout(false);
@@ -164,6 +178,7 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setUpBotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editBotToolStripMenuItem;
+        private System.Windows.Forms.Button btnReconnect;
     }
 }
 

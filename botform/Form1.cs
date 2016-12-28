@@ -30,7 +30,7 @@ namespace botform
             InitializeComponent();
             ContentPanel.Dock = DockStyle.Fill;
 
-            if (bot.username == "")
+            if (bot.getUserName() == "")
             {
 
                 ContentPanel.Controls.Add(acControl);
@@ -42,7 +42,7 @@ namespace botform
                 if (getUserInfo(ref bot))// try to get the users info from file
                 {
 
-                    //Connect();
+                    Connect();
 
                 }
                 else // if it can't be found, load the filler page
@@ -61,6 +61,30 @@ namespace botform
         {
             bool retrived = false;
 
+            string directory = Directory.GetCurrentDirectory();
+
+            if (File.Exists(directory + "\\" + "botinfo.txt"))
+            {
+                
+
+                StreamReader infofile = new StreamReader(directory + "\\" + "botinfo.txt");
+
+                string un = infofile.ReadLine();
+                string bn = infofile.ReadLine();
+                string auth = infofile.ReadLine();
+                string monChat = infofile.ReadLine();
+
+                bot.setUserName(un.ToLower());
+                bot.setBotName(bn.ToLower());
+                bot.setAuth(auth.ToLower());
+                bot.setMonitor(monChat.ToLower());
+                bot.activateBot(true);
+
+                infofile.Close();
+                
+                retrived = true;
+
+            }
 
 
             return retrived;
@@ -75,11 +99,11 @@ namespace botform
 
 
             s_writer.WriteLine("PASS " + bot.getAuth() + Environment.NewLine
-                + "NICK " + bot.botName + Environment.NewLine
-                + "USER " + bot.botName + " 8 * :" + bot.botName);
+                + "NICK " + bot.getBotName() + Environment.NewLine
+                + "USER " + bot.getBotName() + " 8 * :" + bot.getBotName());
 
             s_writer.Flush();
-            s_writer.WriteLine("JOIN #" + bot.username);
+            s_writer.WriteLine("JOIN #" + bot.getMonitor());
             s_writer.Flush();
         }
 
@@ -94,10 +118,6 @@ namespace botform
                     chatDisplay.Text += "\r\nAttempting to connect";
                     Connect();
 
-                } else
-                {
-                    chatDisplay.Text += "\r\nCould not connect";
-                    this.timer1.Enabled = false; // if we couldn't connect, stop the timer
                 }
 
                 if (tcpClient != null)
@@ -138,6 +158,33 @@ namespace botform
             ContentPanel.Controls.Add(currentControl);
             currentControl.BringToFront();
 
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (tcpClient != null)
+            {
+
+                tcpClient.Close();
+
+            }
+           
+        }
+
+        private void btnReconnect_Click(object sender, EventArgs e)
+        {
+
+            timer1.Enabled = false;
+            chatDisplay.Text = "Chat: "; // clear current chat            
+            // reinitialize the bot
+            if (getUserInfo(ref bot)) // if the bot was successfully reinitialized
+            {
+
+                Connect(); // run connect script
+
+                timer1.Enabled = true; // restart the timer
+            }
+            
         }
     }
 }

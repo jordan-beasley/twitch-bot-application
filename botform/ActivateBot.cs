@@ -14,27 +14,9 @@ namespace botform
     public partial class ActivateBot : UserControl
     {
 
-        /*private static ActivateBot _instance;
-        public static ActivateBot Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new ActivateBot(); 
-                }
-
-                return _instance;
-            }
-        }*/
-
-
         public botUser bot;
         string file;
         string auth;
-        bool gotUser = false;
-        bool gotBot = false;
-        bool gotAuth = false;
 
 
 
@@ -44,6 +26,10 @@ namespace botform
             this.Dock = DockStyle.Fill;
             bot = b;
             btnLoadAuth.Visible = false;
+            cbMonChat1.Checked = true;
+            cbMonChat2.Checked = false;
+            monChatBox.Visible = false;
+
         }
 
         private void btnLoadAuth_Click(object sender, EventArgs e)
@@ -85,74 +71,119 @@ namespace botform
         private void btnSubmit_Click(object sender, EventArgs e)
         {
 
-            /*if (usernameBox.Text != "")
+            if (string.IsNullOrWhiteSpace(usernameBox.Text))
             {
-                gotUser = true;
-
-            }else
-            {
-                lblError.Text = "Enter A User Name";
-            }
-
-            if (botnameBox.Text != "")
-            {
-                gotBot = true;
-
-            }else
-            {
-                lblError.Text = "Enter A Bot Name";
-            }
-
-            if (authBox.Text != "")
-            {
-                file = authBox.Text;
-                gotAuth = true;
-
-            } else if (file != "") {
-
-                gotAuth = true;
-
+                lblUsername.ForeColor = Color.Red;
             }
             else
             {
-                lblError.Text = "Enter An Auth Token";
+                lblUsername.ForeColor = Color.Black;
+
+
             }
 
-
-            if (gotUser && gotBot && gotAuth)
+            if (string.IsNullOrWhiteSpace(botnameBox.Text))
             {
-                if (File.Exists(file))
-                {
+                lblBotUsername.ForeColor = Color.Red;
 
-                    bot.username = usernameBox.Text.ToLower();
-                    bot.botName = botnameBox.Text.ToLower();
-                    auth = File.ReadAllText(file);
+            }else
+            {
 
-                    bot.setAuth(auth);
+                lblBotUsername.ForeColor = Color.Black;
 
-                    Console.WriteLine("should have worked");
+            }
 
-                }
-                else
-                {
+            if (string.IsNullOrWhiteSpace(authBox.Text) && file == null)
+            {
+                lblAuth.ForeColor = Color.Red;
+            }
+            else
+            {
 
-                    lblError.Text = "could not locate file";
-                }
+                lblAuth.ForeColor = Color.Black;
 
-            }*/
+
+            }
+
+            if ( cbMonChat2.Checked == true && string.IsNullOrWhiteSpace(monChatBox.Text))
+            {
+                lblMonChat.ForeColor = Color.Red;
+            }
+            else
+            {
+
+                lblMonChat.ForeColor = Color.Black;
+
+
+            }
 
             //check if the text name and bot name are empty
 
+            if (!string.IsNullOrWhiteSpace(usernameBox.Text) && !string.IsNullOrWhiteSpace(botnameBox.Text))
+            {
+
+                // check if the file or path are empty
+                if (!string.IsNullOrWhiteSpace(authBox.Text))
+                {
+
+                    auth = authBox.Text.ToLower();
+
+                    setupBot(auth);
+
+                }
+                else if (file != null) // check if they entered a path for the 
+                {
+                    auth = File.ReadAllText(file).ToLower();
+
+                    setupBot(auth);
+
+                }
+
+            }
+
+            
         }
 
-
-        private bool checkConnection()
+        void setupBot(string auth)
         {
-            bool connected = false;
+            bot.setAuth(auth);
+            bot.setUserName(usernameBox.Text.ToLower());
+            bot.setBotName(botnameBox.Text.ToLower());
+            bot.activateBot(true);
 
+            if (cbMonChat1.Checked == true)
+            {
 
-            return connected;
+                bot.setMonitor(bot.getUserName());
+
+            }else if(cbMonChat2.Checked == true)
+            {
+                bot.setMonitor(monChatBox.Text.ToLower());
+
+            }
+
+            this.Parent.Controls.Remove(this);
+            bot.saveBotInfo();
         }
 
+        private void cbMonChat1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(cbMonChat1.Checked == true)
+            {
+                cbMonChat2.Checked = false;
+                monChatBox.Visible = false;
+            }
+
+        }
+
+        private void cbMonChat2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbMonChat2.Checked == true)
+            {
+                cbMonChat1.Checked = false;
+                monChatBox.Visible = true;
+            }
+
+        }
     }
 }
