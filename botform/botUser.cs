@@ -17,8 +17,8 @@ namespace botform
         private string oAuth;
         private bool active = false;
 
-        public string[] commands = new string[10]; // command, response
-        public string[] response = new string[10];
+        public string[] botCommands = null; // command, response
+        public string[] botResponse = null;
         private int commandCount = 0;
 
         private bool strictMode = false;
@@ -60,6 +60,64 @@ namespace botform
             infoFile.WriteLine(monitorChat);
 
             infoFile.Close();
+
+        }
+
+        public void saveBotCommands()
+        {
+            // add the saving of the commands
+            if (botCommands != null)
+            {
+                string directory = Directory.GetCurrentDirectory();
+                StreamWriter outfile = new StreamWriter(directory + "\\" + "botcommands.txt");
+
+                for (int i = 0; i < botCommands.Length; i++)
+                {
+                    outfile.WriteLine(botCommands[i] + ";" + botResponse[i]);
+                }
+
+                outfile.Close();
+            }
+
+        }
+
+        public void fillCommands()
+        {
+            string directory = Directory.GetCurrentDirectory();
+            
+
+            if (File.Exists(directory + "\\" + "botcommands.txt"))
+            {
+                botCommands = new string[10];
+                botResponse = new string[10];
+                string path = directory + "\\" + "botcommands.txt";
+                string[] commands = File.ReadAllLines(path);
+                //string[] temp = new string[commands.Length];
+
+                // creates a list of string arrays, max size 2, lenght 10
+                List<string[]> temp2 = new List<string[]>();
+
+                foreach (string comm in commands)
+                {
+                    temp2.Add(comm.Split(';'));
+                }
+
+                for (int i = 0; i < commands.Length; i++)
+                {
+                    botCommands[i] = temp2[i][0].ToString();
+                    botResponse[i] = temp2[i][1].ToString();
+                }
+
+
+                //Console.WriteLine(temp2[0][1].ToString());
+
+                //saveBotCommands();
+
+            }
+            else
+            {
+                Console.WriteLine("File not found");
+            }
         }
     }
 

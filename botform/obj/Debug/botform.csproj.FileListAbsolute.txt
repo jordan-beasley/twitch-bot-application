@@ -21,3 +21,4 @@ C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\bin\Debug\Newton
 C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.csprojResolveAssemblyReference.cache
 C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.configureBot.resources
 C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.mainForm.resources
+C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\bin\Debug\MetroFramework.dll
