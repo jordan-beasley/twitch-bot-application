@@ -105,7 +105,7 @@ namespace botform
 
             }
 
-            if ( cbMonChat2.Checked == true && string.IsNullOrWhiteSpace(monChatBox.Text))
+            if (cbMonChat2.Checked == true && string.IsNullOrWhiteSpace(monChatBox.Text))
             {
                 lblMonChat.ForeColor = Color.Red;
             }
@@ -162,8 +162,9 @@ namespace botform
 
             }
 
-            this.Parent.Controls.Remove(this);
             bot.saveBotInfo();
+            this.Parent.Controls.Remove(this);
+
         }
 
         private void cbMonChat1_CheckedChanged(object sender, EventArgs e)

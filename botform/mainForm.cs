@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Sockets;
 using System.IO;
+using System.Diagnostics;
+
 
 namespace botform
 {
-    public partial class Form1 : Form
+    public partial class mainForm : Form
     {
         TcpClient tcpClient;
         StreamReader s_reader;
@@ -23,39 +25,37 @@ namespace botform
         // initialize the user controls
         UserControl currentControl = null;
         ActivateBot acControl = new ActivateBot(ref bot);
+        configureBot configBot = new configureBot(ref bot);
 
 
-        public Form1()
+        public mainForm()
         {
             InitializeComponent();
-            ContentPanel.Dock = DockStyle.Fill;
 
-            if (bot.getUserName() == "")
-            {
-
-                ContentPanel.Controls.Add(acControl);
-                acControl.BringToFront();
-            }
-            else
-            {
-
-                if (getUserInfo(ref bot))// try to get the users info from file
-                {
-
-                    Connect();
-
-                }
-                else // if it can't be found, load the filler page
-                {
-                    currentControl = acControl;
-                    ContentPanel.Controls.Add(currentControl);
-                    acControl.BringToFront();
-
-                }
-            }
-            
+            //setForm();
         }
 
+
+        private void setForm()
+        {
+
+            ContentPanel.Dock = DockStyle.Fill;
+
+            if (getUserInfo(ref bot))// try to get the users info from file
+            {
+
+                Connect();
+
+            }
+            else // if it can't be found, load the filler page
+            {
+                currentControl = acControl;
+                ContentPanel.Controls.Add(currentControl);
+                acControl.BringToFront();
+
+            }
+
+        }
 
         bool getUserInfo(ref botUser b)
         {
@@ -86,14 +86,17 @@ namespace botform
 
             }
 
-
+            
             return retrived;
         }
 
         void Connect()
         {
-
-            tcpClient = new TcpClient("irc.twitch.tv", 6667);
+            // trouble connecting through tcp client
+            //tcpClient = new TcpClient("irc.twitch.tv", 6667);
+            tcpClient = new TcpClient();
+            tcpClient.Connect("irc.twitch.tv", 80);
+            Console.WriteLine("passed initial connection");
             s_reader = new StreamReader(tcpClient.GetStream());
             s_writer = new StreamWriter(tcpClient.GetStream());
 
@@ -105,6 +108,7 @@ namespace botform
             s_writer.Flush();
             s_writer.WriteLine("JOIN #" + bot.getMonitor());
             s_writer.Flush();
+
         }
 
 
@@ -127,7 +131,8 @@ namespace botform
                     {
                         string message = s_reader.ReadLine();
 
-                        chatDisplay.Text += $"\r\n{message}";
+                        //chatDisplay.Text += $"\r\n{message}\r\n";
+                        chatDisplay.AppendText(Environment.NewLine + message + Environment.NewLine);
 
                     }
                 }
@@ -143,7 +148,8 @@ namespace botform
 
         private void homeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            // home page is always loaded so it should be
+            // behind the current user control
             if (currentControl != null)
             {
                 ContentPanel.Controls.Remove(currentControl);
@@ -153,6 +159,12 @@ namespace botform
 
         private void setUpBotToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+            if (currentControl != null)
+            {
+                ContentPanel.Controls.Remove(currentControl);
+            }
+
             currentControl = acControl;
 
             ContentPanel.Controls.Add(currentControl);
@@ -162,6 +174,8 @@ namespace botform
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+
+
             if (tcpClient != null)
             {
 
@@ -175,7 +189,14 @@ namespace botform
         {
 
             timer1.Enabled = false;
-            chatDisplay.Text = "Chat: "; // clear current chat            
+            //chatDisplay.Text = "Chat: "; // clear current chat
+            chatDisplay.Text = ""; // clear current chat
+            if (tcpClient != null && tcpClient.Connected)
+            {
+                tcpClient.Close();
+            }        
+
+
             // reinitialize the bot
             if (getUserInfo(ref bot)) // if the bot was successfully reinitialized
             {
@@ -185,6 +206,21 @@ namespace botform
                 timer1.Enabled = true; // restart the timer
             }
             
+        }
+
+        private void configBotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (currentControl != null)
+            {
+                ContentPanel.Controls.Remove(currentControl);
+            }
+
+            currentControl = configBot;
+
+            ContentPanel.Controls.Add(currentControl);
+            currentControl.BringToFront();
+
         }
     }
 }

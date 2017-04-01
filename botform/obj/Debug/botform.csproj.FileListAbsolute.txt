@@ -13,8 +13,11 @@ C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botfor
 C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.pdb
 C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\bin\Debug\botform.exe
 C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\bin\Debug\botform.pdb
-C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.csprojResolveAssemblyReference.cache
-C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.Form1.resources
 C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.Properties.Resources.resources
 C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.csproj.GenerateResource.Cache
 C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.ActivateBot.resources
+C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.csprojResolveAssemblyReference.cache
+C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.configureBot.resources
+C:\Users\Jordan\Documents\GitHub\twitch-bot-application\botform\obj\Debug\botform.mainForm.resources

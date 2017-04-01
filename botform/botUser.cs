@@ -17,7 +17,8 @@ namespace botform
         private string oAuth;
         private bool active = false;
 
-        public string[,] commands = new string[10,10]; // command, response
+        public string[] commands = new string[10]; // command, response
+        public string[] response = new string[10];
         private int commandCount = 0;
 
         private bool strictMode = false;
