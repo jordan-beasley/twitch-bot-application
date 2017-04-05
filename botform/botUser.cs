@@ -33,17 +33,17 @@ namespace botform
 
         }
 
-        public void setAuth(string auth) { oAuth = auth; }
-        public void setUserName(string UN) { username = UN; }
+        public void   setAuth(string auth) { oAuth = auth; }
+        public void   setUserName(string UN) { username = UN; }
         public string getUserName() { return username; }
-        public void setBotName(string BN) { botName = BN; }
+        public void   setBotName(string BN) { botName = BN; }
         public string getBotName() { return botName; }
         public string getAuth() { return oAuth; }
-        public void activateBot(bool state) { active = state; }
-        public bool getState() { return active; }
-        public void setMonitor(string chat) { monitorChat = chat; }
+        public void   activateBot(bool state) { active = state; }
+        public bool   getState() { return active; }
+        public void   setMonitor(string chat) { monitorChat = chat; }
         public string getMonitor() { return monitorChat; }
-        public int getCommandCount() { return commandCount; }
+        public int    getCommandCount() { return commandCount; }
 
         public void saveBotInfo()
         {
@@ -89,31 +89,30 @@ namespace botform
                 string path = directory + "\\" + "botcommands.txt";
                 string[] commands = File.ReadAllLines(path);
 
-                // creates a list of string arrays, max size 2, lenght 10
+                // creates a list of string arrays, max array size 2, length n
                 // could be used in place of the two sepereate arrays
                 // List.Count will be the size of the array
-                List<string[]> temp2 = new List<string[]>();
+                List<string[]> tempList = new List<string[]>();
                 
 
                 foreach (string comm in commands)
                 {
-                    temp2.Add(comm.Split(';'));
+                    tempList.Add(comm.Split(';'));
                 }
 
-                commandCount = temp2.Count;
+                commandCount = tempList.Count;
                 botCommands = new string[commandCount];
                 botResponse = new string[commandCount];
 
 
-                for (int i = 0; i < temp2.Count; i++)
+                for (int i = 0; i < tempList.Count; i++)
                 {
-                    botCommands[i] = temp2[i][0].ToString();
-                    botResponse[i] = temp2[i][1].ToString();
+                    botCommands[i] = tempList[i][0].ToString();
+                    botResponse[i] = tempList[i][1].ToString();
                 }
 
-                sorter();
+                bubble_sort();
 
-                //saveBotCommands();
 
             }
             else
@@ -123,7 +122,7 @@ namespace botform
         }
 
 
-        public void sorter()
+        public void bubble_sort()
         {
 
             bool swapped = true;
@@ -157,17 +156,30 @@ namespace botform
             int index = -1;
 
             bool found = false;
-            int count = 0;
 
-            while (count < commandCount && !found)
+            int left = 0;
+            int right = commandCount - 1;
+            int mid = left + right / 2;
+
+            while (left < right && !found)
             {
-                if (botCommands[count].Equals(command))
+                if (botCommands[mid] == command)
                 {
-                    index = count;
+                    index = mid;
                     found = true;
+
+                }else if (command.CompareTo(botCommands[mid]) == -1)
+                {
+                    right = mid;
+                    mid = left + right / 2;
+
+                }else
+                {
+                    left = mid;
+                    mid = left + right / 2;
                 }
 
-                count++;
+
             }
 
             return index;

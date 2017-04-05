@@ -28,7 +28,7 @@ namespace botform
             right.Width = tblCommands.Width / 2;
 
            
-            tblCommands.ReadOnly = true;
+            //tblCommands.ReadOnly = true;
             fillTable();
         }
 
@@ -38,24 +38,26 @@ namespace botform
 
             bot.fillCommands();
 
-            if (bot.botCommands == null)
-            {
-                Console.WriteLine("no commands");
-                lblError.Text = "No Commands Found";
+            if (bot.getCommandCount() > 0) {
 
-            }
-            else
-            {
-
+                lblError.Text = "";
                 tblCommands.Rows.Add(bot.getCommandCount());
-                //Console.WriteLine("rows: " + bot.getCommandCount());
+
                 for (int i = 0; i < bot.getCommandCount(); i++)
                 {
                     tblCommands.Rows[i].Cells[0].Value = bot.botCommands[i];
                     tblCommands.Rows[i].Cells[1].Value = bot.botResponse[i];
                 }
 
+            }else
+            {
+
+                Console.WriteLine("no commands");
+                lblError.Text = "No Commands Found";
+
             }
+
+
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -64,19 +66,26 @@ namespace botform
             string directory = Directory.GetCurrentDirectory();
             StreamWriter outfile = new StreamWriter(directory + "\\" + "botcommands.txt");
 
-            for (int i = 1; i < tblCommands.Rows.Count; i++)
+            for (int i = 0; i < tblCommands.Rows.Count - 1; i++)
             {
-                if (tblCommands.Rows[i].Cells[0].Value == null)
+                if (tblCommands.Rows[i] != null)
                 {
-                    outfile.WriteLine(tblCommands.Rows[i].Cells[0].Value + ";"
-                        + tblCommands.Rows[i].Cells[1].Value);
+
+                    outfile.WriteLine(tblCommands.Rows[i].Cells[0].Value.ToString() + ";"
+                        + tblCommands.Rows[i].Cells[1].Value.ToString());
+
+
                 }
             }
 
             outfile.Close();
 
-            //bot.saveBotCommands();
-            //fillTable();
+            tblCommands.Rows.Clear();
+            tblCommands.Refresh();
+
+            fillTable();
+
+
         }
 
  
@@ -88,13 +97,11 @@ namespace botform
             {
                 // remove command from the table
                 int index = tblCommands.CurrentCell.RowIndex;
-                Console.WriteLine(index);
                 tblCommands.Rows.RemoveAt(index);
 
-                // make sure we update the array for the bots
-                // then refill the table
-                // btnUpdate_Click(sender, e);
-                // fillTable();
+                // update the table after deleting from it
+                btnUpdate_Click(sender, e);
+
             }
             
 

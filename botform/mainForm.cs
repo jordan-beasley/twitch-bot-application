@@ -28,7 +28,7 @@ namespace botform
         configureBot configBotControl = new configureBot(ref bot);
 
         // use for delaying response
-        Queue<string> pool = new Queue<string>();
+        Queue<string> commandPool = new Queue<string>();
 
 
         public mainForm()
@@ -43,7 +43,6 @@ namespace botform
         private void setForm()
         {
 
-            //ContentPanel.Dock = DockStyle.Fill;
 
             if (getUserInfo(ref bot))// try to get the users info from file
             {
@@ -114,7 +113,6 @@ namespace botform
 
         }
 
-
         private void chatDisplay_Tick(object sender, EventArgs e)
         {
             if (bot.getState()) {
@@ -132,16 +130,16 @@ namespace botform
 
                     if (tcpClient.Available > 0 || s_reader.Peek() > 0)
                     {
-                        string respones = s_reader.ReadLine();
-                        string message = parseMessage(respones);
-                        checkForCommand(message);
-                        //chatDisplay.Text += $"\r\n{message}\r\n";
+                        string stream = s_reader.ReadLine();
+                        string message = parseMessage(stream);
+                        
                         if (message != "") {
 
                             chatDisplay.AppendText(Environment.NewLine + message + Environment.NewLine);
 
                         }
                        
+                        checkForCommand(message);
 
                     }
                 }
@@ -151,39 +149,40 @@ namespace botform
         private string parseMessage(string message)
         {
 
-            string mess = message;
+            //:<user>!<user>@<user>.tmi.twitch.tv PRIVMSG #<channel> :This is a sample message
+            string chat_message = message;
             string[] temp = message.Split(':');
             // length will either be 3 or 2
 
             if (temp.Length >= 3)
             {
                 Console.WriteLine(message);
-                string[] temp2 = temp[1].Split('@');
+                string[] stream_message = temp[1].Split('@');
 
-                if(temp2.Length > 1)
+                if(stream_message.Length > 1)
                 {
-                    if (temp2[0].Contains('!'))
+                    if (stream_message[0].Contains('!'))
                     {
-                        temp2 = temp2[0].Split('!');
-                        string un = temp2[1];
+                        stream_message = stream_message[0].Split('!');
+                        string un = stream_message[1];
 
-                        mess = un + ": " + temp[2];
+                        chat_message = un + ": " + temp[2];
                     }else
                     {
-                        mess = temp[1] + ": " + temp[2];
+                        chat_message = temp[1] + ": " + temp[2];
                     }
 
                 }else
                 {
 
-                    mess = temp[1] + ": " + temp[2];
+                    chat_message = temp[1] + ": " + temp[2];
 
                 }
 
             
             }
 
-            return mess;
+            return chat_message;
         }
 
         private string checkForCommand(string message)
@@ -197,22 +196,24 @@ namespace botform
                 // remove user name
                 string[] temp = message.Split(':');
 
-                string mess = temp[1];
+                string chat_message = temp[1];
 
-                if (!string.IsNullOrWhiteSpace(mess))
+                if (!string.IsNullOrWhiteSpace(chat_message))
                 {
 
-                    string[] l = mess.Split(' ');
-                    for (int i = 0; i < l.Length; i++)
+                    string[] words = chat_message.Split(' ');
+
+                    for (int i = 0; i < words.Length; i++)
                     {
-                        string s = l[i].ToLower();
+                        string s = words[i].ToLower();
+
                         if (!string.IsNullOrWhiteSpace(s) && s[0] == '!')
                         {
+
                             // if we find a command, strip all special
                             // characters and place in pool
-
-                            string k = Regex.Replace(s, @"[^0-9a-zA-Z]+", "");
-                            pool.Enqueue(k);
+                            string command = Regex.Replace(s, @"[^0-9a-zA-Z]+", "");
+                            commandPool.Enqueue(command);
                             
                         }
                         
@@ -225,8 +226,6 @@ namespace botform
             return response;
         }
 
-
-        // when button is clicked to submit, check text then post reply in chat
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             if (bot.getState()) {
@@ -253,10 +252,10 @@ namespace botform
         private void commResponse_Tick_1(object sender, EventArgs e)
         {
             
-            if (pool.Count > 0)
+            if (commandPool.Count > 0)
             {
-                string t = pool.Dequeue();
-                int index = bot.getIndex(t);
+                string command = commandPool.Dequeue();
+                int index = bot.getIndex(command);
                 if (index != -1)
                 {
                     string response = bot.botResponse[index];
@@ -319,6 +318,8 @@ namespace botform
             if (tcpClient != null)
             {
 
+                s_reader.Close();
+                s_writer.Close();
                 tcpClient.Close();
 
             }
@@ -330,19 +331,21 @@ namespace botform
 
             updateChat.Enabled = false;
             commResponse.Enabled = false;
-            //chatDisplay.Text = "Chat: "; // clear current chat
-            chatDisplay.Text = ""; // clear current chat
+            chatDisplay.Clear(); // clear current chat
+
+
             if (tcpClient != null && tcpClient.Connected)
             {
+                s_reader.Close();
+                s_writer.Close();
                 tcpClient.Close();
             }        
 
-
-            // reinitialize the bot
-            if (getUserInfo(ref bot)) // if the bot was successfully reinitialized
+            
+            if (getUserInfo(ref bot)) 
             {
 
-                Connect(); // run connect script
+                Connect();
 
                 updateChat.Enabled = true; // restart the timer
                 commResponse.Enabled = true;

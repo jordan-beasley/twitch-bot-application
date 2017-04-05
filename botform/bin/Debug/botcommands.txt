@@ -1,4 +1,4 @@
-test;resonse is working
+cf;CodeFriday
+commands; !test !hi !hi !cf !commands
 hello;hi
 hi;hello
-commands;!commands !test !hello !hi

@@ -87,9 +87,9 @@
             this.lblBotUsername.AutoSize = true;
             this.lblBotUsername.Location = new System.Drawing.Point(66, 167);
             this.lblBotUsername.Name = "lblBotUsername";
-            this.lblBotUsername.Size = new System.Drawing.Size(108, 17);
+            this.lblBotUsername.Size = new System.Drawing.Size(102, 17);
             this.lblBotUsername.TabIndex = 4;
-            this.lblBotUsername.Text = "Bot User Name:";
+            this.lblBotUsername.Text = "Bot Username:";
             // 
             // btnSubmit
             // 
