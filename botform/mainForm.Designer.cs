@@ -30,17 +30,18 @@
         {
             this.components = new System.ComponentModel.Container();
             this.ContentPanel = new System.Windows.Forms.Panel();
+            this.chatDisplay = new System.Windows.Forms.TextBox();
             this.btnReconnect = new System.Windows.Forms.Button();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.chatBox = new System.Windows.Forms.TextBox();
             this.lblChat = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.updateChat = new System.Windows.Forms.Timer(this.components);
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.homeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setUpBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configBotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.chatDisplay = new System.Windows.Forms.TextBox();
+            this.commResponse = new System.Windows.Forms.Timer(this.components);
             this.ContentPanel.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -60,6 +61,16 @@
             this.ContentPanel.Name = "ContentPanel";
             this.ContentPanel.Size = new System.Drawing.Size(579, 396);
             this.ContentPanel.TabIndex = 0;
+            // 
+            // chatDisplay
+            // 
+            this.chatDisplay.Location = new System.Drawing.Point(6, 23);
+            this.chatDisplay.Multiline = true;
+            this.chatDisplay.Name = "chatDisplay";
+            this.chatDisplay.ReadOnly = true;
+            this.chatDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.chatDisplay.Size = new System.Drawing.Size(464, 266);
+            this.chatDisplay.TabIndex = 4;
             // 
             // btnReconnect
             // 
@@ -102,10 +113,9 @@
             this.lblChat.TabIndex = 0;
             this.lblChat.Text = "Chat";
             // 
-            // timer1
+            // updateChat
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.updateChat.Tick += new System.EventHandler(this.chatDisplay_Tick);
             // 
             // menuStrip
             // 
@@ -150,15 +160,10 @@
             this.configBotToolStripMenuItem.Text = "Configure";
             this.configBotToolStripMenuItem.Click += new System.EventHandler(this.configBotToolStripMenuItem_Click);
             // 
-            // chatDisplay
+            // commResponse
             // 
-            this.chatDisplay.Location = new System.Drawing.Point(6, 23);
-            this.chatDisplay.Multiline = true;
-            this.chatDisplay.Name = "chatDisplay";
-            this.chatDisplay.ReadOnly = true;
-            this.chatDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.chatDisplay.Size = new System.Drawing.Size(464, 266);
-            this.chatDisplay.TabIndex = 4;
+            this.commResponse.Interval = 5000;
+            this.commResponse.Tick += new System.EventHandler(this.commResponse_Tick_1);
             // 
             // mainForm
             // 
@@ -183,7 +188,7 @@
 
         private System.Windows.Forms.Panel ContentPanel;
         private System.Windows.Forms.Label lblChat;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer updateChat;
         private System.Windows.Forms.TextBox chatBox;
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.MenuStrip menuStrip;
@@ -193,6 +198,7 @@
         private System.Windows.Forms.ToolStripMenuItem configBotToolStripMenuItem;
         private System.Windows.Forms.Button btnReconnect;
         private System.Windows.Forms.TextBox chatDisplay;
+        private System.Windows.Forms.Timer commResponse;
     }
 }
 

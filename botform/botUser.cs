@@ -10,7 +10,6 @@ namespace botform
     public class botUser
     {
 
-        
         private string username;
         private string botName;
         private string monitorChat;
@@ -26,8 +25,6 @@ namespace botform
 
 
 
-
-
         public void strictModeWatch(string chatMessage)
         {
             // check message for any of the words in the strictWatch list
@@ -35,7 +32,6 @@ namespace botform
 
 
         }
-
 
         public void setAuth(string auth) { oAuth = auth; }
         public void setUserName(string UN) { username = UN; }
@@ -47,6 +43,7 @@ namespace botform
         public bool getState() { return active; }
         public void setMonitor(string chat) { monitorChat = chat; }
         public string getMonitor() { return monitorChat; }
+        public int getCommandCount() { return commandCount; }
 
         public void saveBotInfo()
         {
@@ -66,6 +63,7 @@ namespace botform
         public void saveBotCommands()
         {
             // add the saving of the commands
+            // commands and response array will alwayse be the same size
             if (botCommands != null)
             {
                 string directory = Directory.GetCurrentDirectory();
@@ -88,28 +86,32 @@ namespace botform
 
             if (File.Exists(directory + "\\" + "botcommands.txt"))
             {
-                botCommands = new string[10];
-                botResponse = new string[10];
                 string path = directory + "\\" + "botcommands.txt";
                 string[] commands = File.ReadAllLines(path);
-                //string[] temp = new string[commands.Length];
 
                 // creates a list of string arrays, max size 2, lenght 10
+                // could be used in place of the two sepereate arrays
+                // List.Count will be the size of the array
                 List<string[]> temp2 = new List<string[]>();
+                
 
                 foreach (string comm in commands)
                 {
                     temp2.Add(comm.Split(';'));
                 }
 
-                for (int i = 0; i < commands.Length; i++)
+                commandCount = temp2.Count;
+                botCommands = new string[commandCount];
+                botResponse = new string[commandCount];
+
+
+                for (int i = 0; i < temp2.Count; i++)
                 {
                     botCommands[i] = temp2[i][0].ToString();
                     botResponse[i] = temp2[i][1].ToString();
                 }
 
-
-                //Console.WriteLine(temp2[0][1].ToString());
+                sorter();
 
                 //saveBotCommands();
 
@@ -118,6 +120,57 @@ namespace botform
             {
                 Console.WriteLine("File not found");
             }
+        }
+
+
+        public void sorter()
+        {
+
+            bool swapped = true;
+
+            while (swapped)
+            {
+                swapped = false;
+
+                for (int i = 0; i < botCommands.Length - 1; i++)
+                {
+
+                    // compare a to b: 1 == b-a, -1 == a-b, 0 == b is a
+                    if (botCommands[i].CompareTo(botCommands[i + 1]) == 1)
+                    {
+                        string comm = botCommands[i];
+                        string res = botResponse[i];
+                        botCommands[i] = botCommands[i + 1];
+                        botResponse[i] = botResponse[i + 1];
+                        botCommands[i + 1] = comm;
+                        botResponse[i + 1] = res;
+                        swapped = true;
+                    }
+
+                }
+            }
+
+        }
+
+        public int getIndex(string command)
+        {
+            int index = -1;
+
+            bool found = false;
+            int count = 0;
+
+            while (count < commandCount && !found)
+            {
+                if (botCommands[count].Equals(command))
+                {
+                    index = count;
+                    found = true;
+                }
+
+                count++;
+            }
+
+            return index;
         }
     }
 

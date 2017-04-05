@@ -27,7 +27,8 @@ namespace botform
             left.Width = tblCommands.Width / 2;
             right.Width = tblCommands.Width / 2;
 
-            tblCommands.Rows.Add(10);
+           
+            tblCommands.ReadOnly = true;
             fillTable();
         }
 
@@ -46,10 +47,12 @@ namespace botform
             else
             {
 
-                // since I'm limiting the user to 10
-                for (int i = 0; i < 10; i++)
+                tblCommands.Rows.Add(bot.getCommandCount());
+                //Console.WriteLine("rows: " + bot.getCommandCount());
+                for (int i = 0; i < bot.getCommandCount(); i++)
                 {
-
+                    tblCommands.Rows[i].Cells[0].Value = bot.botCommands[i];
+                    tblCommands.Rows[i].Cells[1].Value = bot.botResponse[i];
                 }
 
             }
@@ -74,6 +77,27 @@ namespace botform
 
             //bot.saveBotCommands();
             //fillTable();
+        }
+
+ 
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            
+
+            if (tblCommands.Rows.Count > 1)
+            {
+                // remove command from the table
+                int index = tblCommands.CurrentCell.RowIndex;
+                Console.WriteLine(index);
+                tblCommands.Rows.RemoveAt(index);
+
+                // make sure we update the array for the bots
+                // then refill the table
+                // btnUpdate_Click(sender, e);
+                // fillTable();
+            }
+            
+
         }
     }
 
