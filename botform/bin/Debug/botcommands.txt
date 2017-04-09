@@ -2,3 +2,4 @@ cf;CodeFriday
 commands; !test !hi !hi !cf !commands
 hello;hi
 hi;hello
+l;test

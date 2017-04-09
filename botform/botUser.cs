@@ -20,8 +20,8 @@ namespace botform
         public string[] botResponse = null;
         private int commandCount = 0;
 
-        private bool strictMode = false;
-        private string[] strictWatch = new string[10];
+        //private bool strictMode = false;
+        //private string[] strictWatch = null;
 
 
 
@@ -63,7 +63,7 @@ namespace botform
         public void saveBotCommands()
         {
             // add the saving of the commands
-            // commands and response array will alwayse be the same size
+            // commands and response array will always be the same size
             if (botCommands != null)
             {
                 string directory = Directory.GetCurrentDirectory();

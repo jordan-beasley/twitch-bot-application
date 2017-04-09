@@ -64,6 +64,7 @@
             // 
             // chatDisplay
             // 
+            this.chatDisplay.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.chatDisplay.Location = new System.Drawing.Point(6, 23);
             this.chatDisplay.Multiline = true;
             this.chatDisplay.Name = "chatDisplay";
@@ -74,7 +75,7 @@
             // 
             // btnReconnect
             // 
-            this.btnReconnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnReconnect.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnReconnect.Location = new System.Drawing.Point(476, 354);
             this.btnReconnect.Name = "btnReconnect";
             this.btnReconnect.Size = new System.Drawing.Size(92, 30);
@@ -85,7 +86,7 @@
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSubmit.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnSubmit.Location = new System.Drawing.Point(378, 354);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(92, 30);
@@ -96,7 +97,7 @@
             // 
             // chatBox
             // 
-            this.chatBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chatBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.chatBox.Location = new System.Drawing.Point(6, 296);
             this.chatBox.Multiline = true;
             this.chatBox.Name = "chatBox";
@@ -105,7 +106,7 @@
             // 
             // lblChat
             // 
-            this.lblChat.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblChat.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblChat.AutoSize = true;
             this.lblChat.Location = new System.Drawing.Point(3, 3);
             this.lblChat.Name = "lblChat";
@@ -173,7 +174,6 @@
             this.Controls.Add(this.ContentPanel);
             this.Controls.Add(this.menuStrip);
             this.Name = "mainForm";
-            this.Text = "Chat Bot";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.ContentPanel.ResumeLayout(false);
             this.ContentPanel.PerformLayout();

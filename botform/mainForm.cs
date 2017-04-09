@@ -44,10 +44,13 @@ namespace botform
         {
 
 
-            if (getUserInfo(ref bot))// try to get the users info from file
+            if (getUserInfo(ref bot)) // try to get the users info from file
             {
 
                 Connect();
+                updateChat.Enabled = true; 
+                commResponse.Enabled = true;
+
 
             }
             else // if it can't be found, load the filler page
@@ -63,30 +66,37 @@ namespace botform
         bool getUserInfo(ref botUser b)
         {
             bool retrived = false;
-
-            string directory = Directory.GetCurrentDirectory();
-
-            if (File.Exists(directory + "\\" + "botinfo.txt"))
+            if (bot.getState() == false)
             {
-                
 
-                StreamReader infofile = new StreamReader(directory + "\\" + "botinfo.txt");
+                string directory = Directory.GetCurrentDirectory();
 
-                string un = infofile.ReadLine();
-                string bn = infofile.ReadLine();
-                string auth = infofile.ReadLine();
-                string monChat = infofile.ReadLine();
+                if (File.Exists(directory + "\\" + "botinfo.txt"))
+                {
 
-                bot.setUserName(un.ToLower());
-                bot.setBotName(bn.ToLower());
-                bot.setAuth(auth.ToLower());
-                bot.setMonitor(monChat.ToLower());
-                bot.activateBot(true);
 
-                infofile.Close();
-                
+                    StreamReader infofile = new StreamReader(directory + "\\" + "botinfo.txt");
+
+                    string un = infofile.ReadLine();
+                    string bn = infofile.ReadLine();
+                    string auth = infofile.ReadLine();
+                    string monChat = infofile.ReadLine();
+
+                    bot.setUserName(un.ToLower());
+                    bot.setBotName(bn.ToLower());
+                    bot.setAuth(auth.ToLower());
+                    bot.setMonitor(monChat.ToLower());
+                    bot.activateBot(true);
+
+                    infofile.Close();
+
+                    retrived = true;
+
+                }
+
+            }else
+            {
                 retrived = true;
-
             }
 
             
@@ -156,7 +166,7 @@ namespace botform
 
             if (temp.Length >= 3)
             {
-                Console.WriteLine(message);
+                //Console.WriteLine(message);
                 string[] stream_message = temp[1].Split('@');
 
                 if(stream_message.Length > 1)
@@ -191,7 +201,7 @@ namespace botform
 
             if (bot.botCommands != null)
             {
-                Console.WriteLine("Checking commands: " + message);
+                //Console.WriteLine("Checking commands: " + message);
 
                 // remove user name
                 string[] temp = message.Split(':');
@@ -349,8 +359,15 @@ namespace botform
 
                 updateChat.Enabled = true; // restart the timer
                 commResponse.Enabled = true;
+
+            } else
+            {
+                currentControl = acControl;
+                ContentPanel.Controls.Add(currentControl);
+                acControl.BringToFront();
+
             }
-            
+
         }
 
     }
