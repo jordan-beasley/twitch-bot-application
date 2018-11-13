@@ -58,9 +58,6 @@ namespace botform
             s_reader = new StreamReader(tcpClient.GetStream());
             s_writer = new StreamWriter(tcpClient.GetStream());
 
-            //string username = "zklown";
-            //string password = File.ReadAllText("auth.txt");
-
             s_writer.WriteLine("PASS " + password + Environment.NewLine
                 + "NICK " + username + Environment.NewLine
                 + "USER " + username + " 8 * :" + username);
