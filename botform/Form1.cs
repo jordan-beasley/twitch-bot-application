@@ -63,7 +63,7 @@ namespace botform
                 + "USER " + username + " 8 * :" + username);
 
             s_writer.Flush();
-            s_writer.WriteLine("JOIN #zklown");
+            s_writer.WriteLine("JOIN #" + username);
             s_writer.Flush();
         }
 
